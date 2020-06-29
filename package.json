@@ -1,0 +1,25 @@
+{
+  "name": "kserver",
+  "version": "0.1.0",
+  "description": "server for kList, kPost, and potentially more",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Eli T. Drumm",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@koa/router": "^9.0.1",
+    "apollo-datasource": "^0.7.1",
+    "apollo-datasource-mongodb": "^0.2.6",
+    "apollo-server-koa": "^2.15.0",
+    "argon2": "^0.26.2",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.1.0",
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-jwt": "^4.0.0",
+    "mongodb": "^3.5.9"
+  }
+}
