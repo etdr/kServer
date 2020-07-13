@@ -1,21 +1,39 @@
 
-const MongoClient = require('mongodb').MongoClient;
+// const MongoClient = require('mongodb').MongoClient;
 
-const uri = `mongodb://${process.env.MONGOUSER}:${process.env.MONGOPW}@localhost`
+// // const uri = `mongodb://${process.env.MONGOUSER}:${process.env.MONGOPW}@localhost`
+// const uri = `mongodb://localhost`
 
-const client = new MongoClient(uri)
+// const client = new MongoClient(uri)
 
-client.connect(err => {
-  if (err === null) {
-    console.log('connected to mongo')
-  } else {
-    console.error(err)
-  }
+
+
+// module.exports = client
+
+
+
+
+
+
+const Seq = require('sequelize')
+
+const seq = new Seq(process.env.DATABASE_URL, {
+  dialect: "postgres"
 })
 
-const db = client.db('k')
+seq.authenticate()
+  .then(() => console.log('connected to postgres'))
+  .catch(() => console.error('not connected to postgres'));
 
-module.exports = {
-  client,
-  db
-}
+
+module.exports = seq
+
+
+const Users = require('./models/Users')
+const Lists = require('./models/Lists')
+const Items = require('./models/Items')
+
+
+Users.hasMany(Lists)
+Lists.belongsTo(Users)
+

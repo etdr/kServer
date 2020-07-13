@@ -16,10 +16,18 @@
     "apollo-server-koa": "^2.15.0",
     "argon2": "^0.26.2",
     "dotenv": "^8.2.0",
+    "functional-red-black-tree": "^1.0.1",
     "graphql": "^15.1.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-jwt": "^4.0.0",
-    "mongodb": "^3.5.9"
+    "mongodb": "^3.5.9",
+    "pg": "^8.2.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

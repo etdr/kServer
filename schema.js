@@ -8,12 +8,13 @@ scalar DateTime
 
 type User {
   id: ID!
-  email: String!
+  username: String!
   password: String!
 }
 
 type List {
   id: ID!
+  userid: ID!
   title: String!
   items: [Item]!
   tags: [String]!
@@ -29,13 +30,19 @@ input ListInput {
 
 type Item {
   id: ID!
+  userid: ID!
   order: Int
   content: String!
 }
 
 input ItemInput {
-  order: Int
+  id: ID!
   content: String!
+}
+
+input ItemsInput {
+  ordering: [String]!
+  items: [ItemInput!]!
 }
 
 
@@ -46,7 +53,7 @@ type Query {
 
 type Mutation {
   newList(listInput: ListInput): List
-  addItems(listid: ID!, items: [ItemInput!]!): List
+  addItems(listid: ID!, items: [ItemsInput!]!): List
   removeItems(listid: ID!, itemIDs: [ID!]!): Int
 }
 

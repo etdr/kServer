@@ -11,19 +11,22 @@
 //   }
 // }
 
+const Lists = require('../models/Lists')
+const Items = require('../models/Items')
+
 const { DataSource } = require('apollo-datasource')
 
-const { client, db } = require('../db')
+// const client = require('../db')
 
 
 class ListAPI extends DataSource {
 
   constructor () {
     super()
-    this.client = client
-    this.db = db
+    // this.client = client
+    // this.db = db
     
-    this.lists = db.collection('lists')
+    // this.lists = db.collection('lists')
     // USE BELOW IF STRICT MODE
     // async function attachListsCollection () {
     //   this.lists = await db.collection('lists')
@@ -35,15 +38,47 @@ class ListAPI extends DataSource {
     this.context = config.context
   }
 
-  async getLists () {
-    const lists = await this.lists.find({}).toArray()
+  async getAllLists () {
+    const lists = await Lists.find({}).toArray()
+    return lists
+  }
+
+  async getLists (userid) {
+    const lists = await Lists.find({ where: { userid: userid }}).toArray()
     return lists
   }
 
   async getList (id) {
-    const list = await this.lists.findOne({ id })
+    const list = await this.lists.findOne({ where: { id }})
     return list
   }
+
+  async postList (title, items=[], tags=[]) {
+    const userId = this.context.user.id
+    const result = await Lists.create({
+      userId, title, items, tags
+    })
+    return result
+  }
+
+  async postItems (listId, itemsinput) {
+    const userId = this.context.user.id
+
+    for (let i of itemsinput.items) {
+      await Items.create({
+        description: i.content,
+        listId
+      })
+    }
+
+    const result = await Lists.update({
+      items: itemsinput.ordering
+    },
+    { listId })
+    return result
+  }
+
+  async updateItems ()
 }
 
 module.exports = ListAPI
